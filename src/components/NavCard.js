@@ -17,8 +17,15 @@ const NavCardImage = styled.div`
 `
 
 const NavCardSectionText = styled.h2`
-  color: white;
-  font-size: 50px;
+  background: white;
+  flex-basis: 100%;
+  text-align: center;
+  padding: 5px 0px 5px 0px;
+`
+
+const NavHr = styled.hr`
+  margin: 5px 0px 5px 0px;
+  width: 200px;
 `
 
 export default function NavCard(props) {
@@ -27,7 +34,7 @@ export default function NavCard(props) {
       <NavCardImage meal={props.meal} alt="Delicious food">
         <NavCardSectionText>{props.section}</NavCardSectionText>
       </NavCardImage>
-      <hr />
+      <NavHr align="center" />
       <div>
         <h2>{props.meal.name}</h2>
         <li>
