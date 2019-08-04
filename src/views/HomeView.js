@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import NavCard from '../components/NavCard';
+import { faUtensils, faShoppingBasket, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import SiteTitle from '../components/SiteTitle';
 
 const HomeViewContainer = styled.div`
   display: flex;
@@ -8,25 +10,36 @@ const HomeViewContainer = styled.div`
   flex-basis: 100%;
   align-self: center;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+  width: 100%;
+`
 
-  @media (min-width: 600px) {
-    width: 45%
+const NavCardsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  justify-content: space-around;
+  @media (min-width: 1050px) {
+  flex-direction: row;
+  align-content: space-around;
+  width: 75%;
   }
 `
 
 const navcards = [
-  { section: 'Meals', path: "/meals/", image: 'https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg' },
-  { section: 'Grocery Lists', path: "/groceries/", image: 'https://cdn.pixabay.com/photo/2016/03/23/19/38/shopping-cart-1275480_1280.jpg' },
-  { section: 'Plans', path: "/plans/", image: 'https://cdn.pixabay.com/photo/2014/02/24/18/31/time-273857_1280.jpg' }
+  { bgColor: "#00b894", section: 'Meals', path: "/meals/", icon: faUtensils },
+  { bgColor: "#0984e3", section: 'Grocery Lists', path: "/groceries/", icon: faShoppingBasket },
+  { bgColor: "#e17055", section: 'Plans', path: "/plans/", icon: faCalendarAlt }
 ]
 
 
 function HomeView() {
   return (
     <HomeViewContainer>
-      {navcards.map(nav => <NavCard section={nav.section} image={nav.image} path={nav.paht} />)}
+      <SiteTitle />
+      <NavCardsContainer>
+        {navcards.map((nav, idx) => <NavCard key={idx} {...nav} />)}
+      </NavCardsContainer>
     </HomeViewContainer>
   )
 }

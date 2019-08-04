@@ -1,39 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavCardContainer = styled.div`
-display: flex;
-flex-direction: column;
-box-shadow: 1px 1px 1px lightgray;
-max-width: 300px;
-`
-
-const NavCardImage = styled.div`
-  max-width: 300px;
-  height: 200px;
+  padding: 50px 25px;
+  flex-shrink: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-image: ${props => "url(" + props.image + ")"};
-  background-position: center;
+  box-shadow: 1px 1px 1px lightgray;
+  width: 300px;
+  background-color: ${props => props.bgColor};
+  text-decoration: none;
+  :hover {
+    background: #dfe6e9;
+  }
 `
 
 const NavCardSectionText = styled.h2`
-  background: white;
-  flex-basis: 100%;
-  text-align: center;
-  padding: 5px 0px 5px 0px;
+  text-decoration: inherit;
+  color: inherit;
 `
 
 export default function NavCard(props) {
   return (
-    <Link to={props.path} >
-      <NavCardContainer>
-        <NavCardImage image={props.image}>
+    <React.Fragment>
+      <NavLink to={props.path} style={{ textDecoration: 'none', color: 'white' }} >
+        <NavCardContainer bgColor={props.bgColor}>
+          <FontAwesomeIcon icon={props.icon} size="3x" style={{ fontWeight: 'normal', textDecoration: 'inherit', color: 'inhereit', }} />
           <NavCardSectionText>{props.section}</NavCardSectionText>
-        </NavCardImage>
-      </NavCardContainer>
-    </Link>
+        </NavCardContainer>
+      </NavLink>
+    </React.Fragment>
   )
 }

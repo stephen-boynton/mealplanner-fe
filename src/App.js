@@ -9,7 +9,6 @@ const AppContainer = styled.div`
   flex-direction: column;
   width: auto;
   height: 100vh;
-  background: #0984e3;
 `
 
 function App() {

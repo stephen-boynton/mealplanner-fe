@@ -6,11 +6,9 @@ import SiteTitle from '../components/SiteTitle';
 const LoginFormContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
   align-self: center;
   align-items: center;
   justify-content: center;
-  height: 100%;
 
   @media (min-width: 600px) {
     width: 45%
