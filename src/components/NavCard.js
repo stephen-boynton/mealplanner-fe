@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavCardContainer = styled.div`
 display: flex;
 flex-direction: column;
+box-shadow: 1px 1px 1px lightgray;
+max-width: 300px;
 `
 
 const NavCardImage = styled.div`
@@ -12,7 +15,7 @@ const NavCardImage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: ${props => "url(" + props.meal.photo + ")"};
+  background-image: ${props => "url(" + props.image + ")"};
   background-position: center;
 `
 
@@ -23,24 +26,14 @@ const NavCardSectionText = styled.h2`
   padding: 5px 0px 5px 0px;
 `
 
-const NavHr = styled.hr`
-  margin: 5px 0px 5px 0px;
-  width: 200px;
-`
-
 export default function NavCard(props) {
   return (
-    <NavCardContainer>
-      <NavCardImage meal={props.meal} alt="Delicious food">
-        <NavCardSectionText>{props.section}</NavCardSectionText>
-      </NavCardImage>
-      <NavHr align="center" />
-      <div>
-        <h2>{props.meal.name}</h2>
-        <li>
-          {props.meal.ingredients.map(i => <ol>{i}</ol>)}
-        </li>
-      </div>
-    </NavCardContainer>
+    <Link to={props.path} >
+      <NavCardContainer>
+        <NavCardImage image={props.image}>
+          <NavCardSectionText>{props.section}</NavCardSectionText>
+        </NavCardImage>
+      </NavCardContainer>
+    </Link>
   )
 }
