@@ -14,7 +14,7 @@ const NavCardContainer = styled.div`
   background-color: ${props => props.bgColor};
   text-decoration: none;
   :hover {
-    background: #dfe6e9;
+    background: #81ecec;
   }
 `
 
