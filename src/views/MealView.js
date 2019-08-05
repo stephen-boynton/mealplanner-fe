@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import MealCard from '../components/MealCard';
-import { faUtensils, faShoppingBasket, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import SiteTitle from '../components/SiteTitle';
 
 const MealViewContainer = styled.div`
@@ -44,6 +45,7 @@ const MealActionContainer = styled.div`
 
   @media (min-width: 1050px) {
     justify-content: space-evenly;
+    align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
     width: 60%;
@@ -53,11 +55,14 @@ const ActionButton = styled.button`
 padding: 10px;
 align-self: center;
 border-radius: 20px;
-background: #00b894;
-color: white;
+background: white;
+/* background: #00b894; */
+/* color: white; */
+color: #636e72;
+border: 1px solid #636e72;
 font-weight: bold;
 font-size: 1rem;
-border: none;
+/* border: none; */
 
 :hover {
   box-shadow: 3px 3px 3px #b2bec3;
@@ -66,6 +71,15 @@ border: none;
 :active {
   background: #55efc4;
 }
+`
+
+const ActionSearchInput = styled.input`
+font-size: 16px;
+margin-right: 10px;
+`
+
+const SearchIcon = styled(FontAwesomeIcon)`
+color: #00b894;
 `
 
 function MealView(props) {
@@ -78,7 +92,10 @@ function MealView(props) {
         <ActionButton>Add New</ActionButton>
         <ActionButton>Browse Your Meals</ActionButton>
         <ActionButton>Explore</ActionButton>
-        <input type="search" />
+        <div>
+          <ActionSearchInput type="search" placeholder="Search for meals" />
+          <SearchIcon icon={faSearch} size="lg" />
+        </div>
       </MealActionContainer>
       <SectionTitle>Most Recent Meals</SectionTitle>
       <MealCardsContainer>
