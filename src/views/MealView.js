@@ -5,6 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import SiteTitle from '../components/SiteTitle';
 
+/*
+{ _id: '149b9384-f239-4ef4-a093-e0d76b3afd57',
+       name: 'stephen',
+       email: 'test@test.com',
+       password: '123',
+       favorites: [] }
+*/
+
 const MealViewContainer = styled.div`
   display: flex;
   flex-direction: column;
