@@ -21,6 +21,10 @@ const MealForm = styled.form`
 export default function NewMealModal(props) {
     const [ingredients, setIngredients] = useState(['']);
 
+    const updateSelectedIngredient = (e) {
+        
+    }
+
     return (
         <NewMealModalContainer>
             <MealForm>
@@ -31,7 +35,7 @@ export default function NewMealModal(props) {
                 </label>
                 <label>
                     Ingredients
-                    {ingredients.map((ing, ind) => <input onChange={updateSelectedIngredient} type="text" val={ing} />}
+                    {ingredients.map((ing, ind) => <input key={ind} onChange={updateSelectedIngredient} type="text" val={ing} />)}
                 </label>
             </MealForm>
         </NewMealModalContainer>
