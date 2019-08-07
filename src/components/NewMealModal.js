@@ -12,10 +12,18 @@ const NewMealModalContainer = styled.div`
     background: white;
 `
 
+const MealForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+`
+
 export default function NewMealModal(props) {
+    const [ingredients, setIngredients] = useState(['']);
+
     return (
         <NewMealModalContainer>
-            <form>
+            <MealForm>
                 <h2>Add New Meal</h2>
                 <label>
                     Meal Name
@@ -23,9 +31,9 @@ export default function NewMealModal(props) {
                 </label>
                 <label>
                     Ingredients
-                    <input />
+                    {ingredients.map((ing, ind) => <input onChange={updateSelectedIngredient} type="text" val={ing} />}
                 </label>
-            </form>
+            </MealForm>
         </NewMealModalContainer>
     )
 }
