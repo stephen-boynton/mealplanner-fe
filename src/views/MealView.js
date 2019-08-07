@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import MealCard from '../components/MealCard';
+import NewMealModal from '../components/NewMealModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import SiteTitle from '../components/SiteTitle';
@@ -90,14 +91,23 @@ const SearchIcon = styled(FontAwesomeIcon)`
 color: #00b894;
 `
 
+const noMeal = <div>Add and use more meals to see them!</div>
+
 function MealView(props) {
-  const [meal1, meal2, meal3, meal4] = props.recentMeals;
+  const [meal1, meal2, meal3, meal4] = [];
+  const [isNewModalOpen, setNewModalOpen] = useState(false);
+
+  const displayNewModal = () => {
+    setNewModalOpen(!isNewModalOpen);
+  }
+
   return (
     <MealViewContainer>
       <SiteTitle />
       <SectionTitle>Meals & Recipes</SectionTitle>
+      {isNewModalOpen && <NewMealModal />}
       <MealActionContainer>
-        <ActionButton>Add New</ActionButton>
+        <ActionButton onClick={displayNewModal}>Add New</ActionButton>
         <ActionButton>Browse Your Meals</ActionButton>
         <ActionButton>Explore</ActionButton>
         <div>
@@ -107,11 +117,11 @@ function MealView(props) {
       </MealActionContainer>
       <SectionTitle>Most Recent Meals</SectionTitle>
       <MealCardsContainer>
-        <MealCard meal={meal1} />
-        <MealCard meal={meal2} />
+        {meal1 ? <MealCard meal={meal1} /> : noMeal}
+        {meal2 ? <MealCard meal={meal2} /> : noMeal}
         <LineBreak />
-        <MealCard meal={meal3} />
-        <MealCard meal={meal4} />
+        {meal3 ? <MealCard meal={meal3} /> : noMeal}
+        {meal4 ? <MealCard meal={meal4} /> : noMeal}
       </MealCardsContainer>
     </MealViewContainer>
   )

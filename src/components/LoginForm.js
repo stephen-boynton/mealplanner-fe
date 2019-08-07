@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks'
+
+const LOG_IN = gql`
+mutation login($input: LoginInput){
+    login(input: $input){
+      jwt
+    }
+  }
+
+`
 
 const Form = styled.form`
 display: flex;
@@ -45,20 +57,27 @@ border: none;
 `
 
 function LoginForm() {
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [login, { data }] = useMutation(LOG_IN);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userName);
+    login({ variables: { input: { email, password } } });
   }
 
-  const handleChangeUserName = (e) => {
-    setUserName(e.target.value);
+  const handleChangeemail = (e) => {
+    setEmail(e.target.value);
   }
 
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
+  }
+
+  if (data) {
+    localStorage.setItem('token', data.login.jwt);
+    return <Redirect to="/home/" />
   }
 
   return (
@@ -66,9 +85,8 @@ function LoginForm() {
       <FormName>Login</FormName>
       <Label>
         Email
-        <Input autoFocus type="text" value={userName} onChange={handleChangeUserName} />
+        <Input autoFocus type="text" value={email} onChange={handleChangeemail} />
       </Label>
-
       <Label>
         Password
         <Input type="password" value={password} onChange={handleChangePassword} />
