@@ -105,7 +105,7 @@ function MealView(props) {
     <MealViewContainer>
       <SiteTitle />
       <SectionTitle>Meals & Recipes</SectionTitle>
-      {isNewModalOpen && <NewMealModal />}
+      {isNewModalOpen && <NewMealModal setNewModalOpen={setNewModalOpen} />}
       <MealActionContainer>
         <ActionButton onClick={displayNewModal}>Add New</ActionButton>
         <ActionButton>Browse Your Meals</ActionButton>

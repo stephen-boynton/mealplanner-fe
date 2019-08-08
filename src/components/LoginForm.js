@@ -10,7 +10,6 @@ mutation login($input: LoginInput){
       jwt
     }
   }
-
 `
 
 const Form = styled.form`
