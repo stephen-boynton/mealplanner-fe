@@ -8,11 +8,11 @@ import { useMutation } from '@apollo/react-hooks'
 const ADD_MEAL = gql`
 mutation addMeal($input: AddMealInput){
     addMeal(input: $input){
-      _id,
+    #   _id,
       name,
-      description,
-      ingredients,
-      directions
+    #   description,
+    #   ingredients,
+    #   directions
     }
   }
 `
@@ -106,7 +106,7 @@ export default function NewMealModal(props) {
     const [addMeal, { data, error, loading }] = useMutation(ADD_MEAL);
 
     const handleOnChange = updateFx => e => {
-        updateFx(e.target.value0);
+        updateFx(e.target.value);
     };
 
     const handleNameUpdate = handleOnChange(setMealName);
@@ -115,11 +115,17 @@ export default function NewMealModal(props) {
 
     const onSubmit = async e => {
         e.preventDefault();
-        console.log('i made it here')
-        await addMeal({ variables: { input: { meal: { name: mealName, description, directions, ingredients } } } })
-        console.log('i made it here, too')
+        const newMealPayload = {
+            meal: {
+                name: mealName,
+                description,
+                directions,
+                ingredients
+            }
+        };
 
-        // props.setModalIsOpen(false);
+        addMeal({ variables: { input: newMealPayload } });
+        props.setNewModalOpen(false);
     }
 
     const updateSelectedIngredient = i => e => {
@@ -142,14 +148,14 @@ export default function NewMealModal(props) {
     if (data) {
         console.log(data);
     } else if (error) {
-        console.error(error);
+        console.log('this is the error!', error);
     } else if (loading) {
         console.log('loading');
     }
 
     return (
         <NewMealModalContainer>
-            <MealForm>
+            <MealForm onSubmit={onSubmit}>
                 <h2>Add New Meal</h2>
                 <FormLabels>
                     Meal Name
@@ -174,7 +180,7 @@ export default function NewMealModal(props) {
                     <textarea onChange={handleDirectionsUpdate} />
                 </FormLabels>
                 <ButtonContainer>
-                    <Submit onSubmit={onSubmit} type="submit" value="Save" />
+                    <Submit type="submit" value="Save" />
                     <CancelButton>Cancel</CancelButton>
                 </ButtonContainer>
             </MealForm>

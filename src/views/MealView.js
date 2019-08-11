@@ -5,6 +5,8 @@ import NewMealModal from '../components/NewMealModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import SiteTitle from '../components/SiteTitle';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
 
 /*
 { _id: '149b9384-f239-4ef4-a093-e0d76b3afd57',
@@ -13,6 +15,17 @@ import SiteTitle from '../components/SiteTitle';
        password: '123',
        favorites: [] }
 */
+
+const GET_RECENT_MEALS = gql`
+  query GetFourRecentMeals {
+    getFourRecentMeals{
+      _id
+      name
+      description
+      last_date_used
+    }
+  }
+`
 
 const MealViewContainer = styled.div`
   display: flex;
@@ -94,7 +107,9 @@ color: #00b894;
 const noMeal = <div>Add and use more meals to see them!</div>
 
 function MealView(props) {
-  const [meal1, meal2, meal3, meal4] = [];
+  const { data = {}, error } = useQuery(GET_RECENT_MEALS);
+  console.log(data);
+  const [meal1, meal2, meal3, meal4] = data.getFourRecentMeals ? data.getFourRecentMeals : [];
   const [isNewModalOpen, setNewModalOpen] = useState(false);
 
   const displayNewModal = () => {

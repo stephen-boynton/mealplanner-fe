@@ -37,10 +37,11 @@ const ActionButtonContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   margin: 20px 0px;
+  flex-grow: 1;
 `
 
 const FavIcon = styled(FontAwesomeIcon)`
-  color: ${props => props.isFav ? "#d63031" : "#636e72"};
+  color: ${props => props.isfav ? "#d63031" : "#636e72"};
   border-radius: 50% 50%;
   padding: 10px;
 
@@ -72,9 +73,9 @@ export default function MealCard(props) {
     <MealCardContainer>
       <MealName>{props.meal.name}</MealName>
       <Description>{props.meal.description}</Description>
-      <LastUsed>Last Used: {props.meal.last_used}</LastUsed>
+      <LastUsed>Last Used: {props.meal.last_date_used}</LastUsed>
       <ActionButtonContainer>
-        <FavIcon onClick={handleFavorite} isFav={isFavorite} icon={faHeart} />
+        <FavIcon onClick={handleFavorite} isfav={isFavorite} icon={faHeart} />
         <AddIcon icon={faPlus} />
       </ActionButtonContainer>
     </MealCardContainer>
