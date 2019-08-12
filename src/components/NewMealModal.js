@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import * as Buttons from '../ui/Buttons';
+import * as Form from '../ui/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { gql } from 'apollo-boost';
 import { useMutation } from '@apollo/react-hooks'
+import { ADD_MEAL } from '../mutations';
 
-const ADD_MEAL = gql`
-mutation addMeal($input: AddMealInput){
-    addMeal(input: $input){
-    #   _id,
-      name,
-    #   description,
-    #   ingredients,
-    #   directions
-    }
-  }
-`
+
 const NewMealModalContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -29,17 +21,7 @@ const NewMealModalContainer = styled.div`
     overflow: scroll;
 `
 
-const MealForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-`
 
-const FormLabels = styled.label`
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-`
 
 const IngredientContainer = styled.div`
     display: flex;
@@ -48,48 +30,6 @@ const IngredientContainer = styled.div`
 
 const Icons = styled(FontAwesomeIcon)`
     margin: 10px;
-`
-
-const Submit = styled.input`
-    width: 100px;
-    padding: 10px;
-    align-self: center;
-    border-radius: 20px;
-    background: #00b894;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    border: none;
-
-    :hover {
-        box-shadow: 3px 3px 3px #b2bec3;
-    }
-
-    :active {
-        background: #55efc4;
-    }
-`
-
-const CancelButton = styled.button`
-padding: 10px;
-align-self: center;
-border-radius: 20px;
-background: white;
-/* background: #00b894; */
-/* color: white; */
-color: #636e72;
-border: 1px solid #636e72;
-font-weight: bold;
-font-size: 1rem;
-/* border: none; */
-
-:hover {
-  box-shadow: 3px 3px 3px #b2bec3;
-}
-
-:active {
-  background: #55efc4;
-}
 `
 
 const ButtonContainer = styled.div`
@@ -155,35 +95,35 @@ export default function NewMealModal(props) {
 
     return (
         <NewMealModalContainer>
-            <MealForm onSubmit={onSubmit}>
+            <Form.container onSubmit={onSubmit}>
                 <h2>Add New Meal</h2>
-                <FormLabels>
-                    Meal Name
-                    <input onChange={handleNameUpdate} />
-                </FormLabels>
-                <FormLabels>
+                <Form.label>
+                    Meal Name*
+                    <Form.input onChange={handleNameUpdate} />
+                </Form.label>
+                <Form.label>
                     Description
-                    <input onChange={handleDescriptionupdate} />
-                </FormLabels>
-                <FormLabels>
-                    Ingredients
+                    <Form.input onChange={handleDescriptionupdate} />
+                </Form.label>
+                <Form.label>
+                    Ingredients*
                     {ingredients.map((ing, ind) =>
                         <IngredientContainer key={ind}>
-                            <input onChange={updateSelectedIngredient(ind)} type="text" value={ing} />
+                            <Form.input onChange={updateSelectedIngredient(ind)} type="text" value={ing} />
                             <Icons onClick={deleteCurrentIngredient(ind)} icon={faMinus} />
                             <Icons onClick={addIngredientAfter(ind)} icon={faPlus} />
                         </IngredientContainer>
                     )}
-                </FormLabels>
-                <FormLabels>
+                </Form.label>
+                <Form.label>
                     Directions
-                    <textarea onChange={handleDirectionsUpdate} />
-                </FormLabels>
+                    <Form.textarea onChange={handleDirectionsUpdate} />
+                </Form.label>
                 <ButtonContainer>
-                    <Submit type="submit" value="Save" />
-                    <CancelButton>Cancel</CancelButton>
+                    <Buttons.submit type="submit" value="Save" />
+                    <Buttons.secondary>Cancel</Buttons.secondary>
                 </ButtonContainer>
-            </MealForm>
+            </Form.container>
         </NewMealModalContainer>
     )
 }

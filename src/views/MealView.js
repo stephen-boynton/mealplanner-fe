@@ -2,30 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import MealCard from '../components/MealCard';
 import NewMealModal from '../components/NewMealModal';
+import * as Buttons from '../ui/Buttons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import SiteTitle from '../components/SiteTitle';
-import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
-
-/*
-{ _id: '149b9384-f239-4ef4-a093-e0d76b3afd57',
-       name: 'stephen',
-       email: 'test@test.com',
-       password: '123',
-       favorites: [] }
-*/
-
-const GET_RECENT_MEALS = gql`
-  query GetFourRecentMeals {
-    getFourRecentMeals{
-      _id
-      name
-      description
-      last_date_used
-    }
-  }
-`
+import { GET_RECENT_MEALS } from '../queries';
 
 const MealViewContainer = styled.div`
   display: flex;
@@ -73,35 +55,14 @@ const MealActionContainer = styled.div`
     width: 60%;
   }
 `
-const ActionButton = styled.button`
-padding: 10px;
-align-self: center;
-border-radius: 20px;
-background: white;
-/* background: #00b894; */
-/* color: white; */
-color: #636e72;
-border: 1px solid #636e72;
-font-weight: bold;
-font-size: 1rem;
-/* border: none; */
-
-:hover {
-  box-shadow: 3px 3px 3px #b2bec3;
-}
-
-:active {
-  background: #55efc4;
-}
-`
 
 const ActionSearchInput = styled.input`
-font-size: 16px;
-margin-right: 10px;
+  font-size: 16px;
+  margin-right: 10px;
 `
 
 const SearchIcon = styled(FontAwesomeIcon)`
-color: #00b894;
+  color: #00b894;
 `
 
 const noMeal = <div>Add and use more meals to see them!</div>
@@ -122,9 +83,9 @@ function MealView(props) {
       <SectionTitle>Meals & Recipes</SectionTitle>
       {isNewModalOpen && <NewMealModal setNewModalOpen={setNewModalOpen} />}
       <MealActionContainer>
-        <ActionButton onClick={displayNewModal}>Add New</ActionButton>
-        <ActionButton>Browse Your Meals</ActionButton>
-        <ActionButton>Explore</ActionButton>
+        <Buttons.secondary onClick={displayNewModal}>Add New</Buttons.secondary>
+        <Buttons.secondary>Browse Your Meals</Buttons.secondary>
+        <Buttons.secondary>Explore</Buttons.secondary>
         <div>
           <ActionSearchInput type="search" placeholder="Search for meals" />
           <SearchIcon icon={faSearch} size="lg" />
